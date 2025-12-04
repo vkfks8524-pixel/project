@@ -5,22 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>체험학습 일정 안내</title>
 
-  <!-- 웹폰트 (원하면 다른 폰트로 변경 가능) -->
+  <!-- 웹폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Kakao Maps JavaScript SDK : appkey를 본인 키로 교체 -->
-  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c60795f25ad0c792afa020b4dc77789c&autoload=false"></script>
-
-
   <style>
     :root {
       --bg-page: #f3f4f6;
-      --bg-hero: radial-gradient(circle at top, #e0f2fe 0, #eff6ff 40%, #f9fafb 100%);
+      --bg-hero: radial-gradient(circle at top, #e0f2fe 0, #eff6ff 45%, #f9fafb 100%);
       --card-bg: #ffffff;
       --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.12);
+      --accent-soft: rgba(37, 99, 235, 0.14);
       --accent-strong: #1d4ed8;
       --border-subtle: #e5e7eb;
       --text-main: #111827;
@@ -28,7 +24,7 @@
       --danger: #ef4444;
       --radius-lg: 18px;
       --radius-pill: 999px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 16px 32px rgba(15, 23, 42, 0.12);
     }
 
     * {
@@ -53,14 +49,15 @@
       flex-direction: column;
     }
 
+    /* 상단 히어로 (모바일 기준) */
     .hero {
       background: var(--bg-hero);
-      padding: 32px 16px 20px;
+      padding: 20px 14px 18px;
       border-bottom: 1px solid #e5e7eb;
     }
 
     .hero-inner {
-      max-width: 1040px;
+      max-width: 540px;
       margin: 0 auto;
     }
 
@@ -72,9 +69,9 @@
       border-radius: var(--radius-pill);
       background: rgba(37, 99, 235, 0.08);
       color: var(--accent-strong);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .hero-tag-dot {
@@ -86,32 +83,33 @@
     }
 
     .hero-title {
-      font-size: 28px;
-      line-height: 1.3;
+      font-size: 22px;
+      line-height: 1.35;
       font-weight: 700;
-      margin: 0 0 8px;
+      margin: 0 0 6px;
     }
 
     .hero-sub {
       margin: 0;
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .hero-notice {
-      margin-top: 16px;
+      margin-top: 12px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
-      font-size: 13px;
+      font-size: 12px;
     }
 
     .hero-pill {
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: var(--radius-pill);
       background: #fee2e2;
-      color: var(--danger);
+      color: #ef4444;
       font-weight: 500;
     }
 
@@ -119,129 +117,203 @@
       color: var(--text-muted);
     }
 
+    /* 메인: 모바일 단일 컬럼 */
     .main {
       flex: 1;
-      padding: 20px 16px 40px;
+      padding: 16px 12px 28px;
     }
 
     .main-inner {
-      max-width: 1040px;
+      max-width: 540px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.1fr);
-      gap: 20px;
-    }
-
-    /* 좌측: 상세 카드 영역 */
-    .trips-column {
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
+    /* 날짜 선택: 1행에 3개 버튼 (날짜만) */
+    .date-tabs {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .date-tab {
+      flex: 1 1 0;
+      min-width: 0;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      padding: 8px 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.05);
+      transition: background 0.1s ease, transform 0.08s ease, box-shadow 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+      text-align: center;
+    }
+
+    .date-tab span {
+      white-space: nowrap;
+    }
+
+    .date-tab:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .date-tab.active {
+      background: var(--accent-soft);
+      border-color: var(--accent-strong);
+      color: var(--accent-strong);
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
+    }
+
+    /* 상세 카드 (선택된 날짜만 표시) */
     .trip-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
-      padding: 18px 18px 16px;
-      border: 1px solid rgba(15, 23, 42, 0.04);
+      padding: 18px 14px 16px;
+      border: 1px solid rgba(15, 23, 42, 0.03);
+      display: none;
+    }
+
+    .trip-card.active {
+      display: block;
     }
 
     .trip-header {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px 16px;
-      margin-bottom: 14px;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
-    .trip-main-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .trip-date {
-      padding: 8px 14px;
-      border-radius: 12px;
-      background: var(--accent-soft);
-      color: var(--accent-strong);
+    .trip-date-large {
+      font-size: 18px;
       font-weight: 700;
-      font-size: 14px;
+      color: #4b5563;
     }
 
-    .trip-place {
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .trip-time {
-      font-size: 14px;
-      color: var(--text-muted);
+    .trip-place-large {
+      font-size: 20px;
+      font-weight: 800;
+      color: #111827;
     }
 
     .trip-badge {
-      font-size: 12px;
-      padding: 5px 10px;
+      font-size: 11px;
+      padding: 4px 8px;
       border-radius: var(--radius-pill);
       background: #ecfdf3;
       color: #166534;
       font-weight: 500;
-      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    /* 정보 블록 공통 */
+    .info-block {
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-top: 8px;
+    }
+
+    .info-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .info-main-text {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .info-sub-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .place-block {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .place-block .info-main-text {
+      color: #1d4ed8;
+    }
+
+    .time-block {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .time-block .info-main-text {
+      color: #b45309;
+    }
+
+    .route-block {
+      background: #ecfdf5;
+      color: #166534;
+    }
+
+    .route-block .info-label {
+      color: #15803d;
     }
 
     .trip-body {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr);
-      gap: 14px;
-    }
-
-    .map-shell {
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      background: #e5e7eb;
-      min-height: 220px;
-    }
-
-    .map {
-      width: 100%;
-      height: 100%;
-      min-height: 220px;
-    }
-
-    .directions {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      margin-top: 4px;
     }
 
-    .directions-title {
-      font-size: 14px;
-      font-weight: 600;
+    /* 오는 방법 리스트 */
+    .transport-steps {
+      margin: 4px 0 0;
+      padding-left: 18px;
+    }
+
+    .transport-steps li {
+      margin-bottom: 4px;
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .transport-steps strong {
+      font-weight: 700;
+    }
+
+    /* 길찾기 버튼 */
+    .directions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
     }
 
     .directions-label {
       font-size: 12px;
       color: var(--text-muted);
+      line-height: 1.5;
     }
 
-    .directions-row {
+    .btn-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      align-items: center;
-    }
-
-    .input-start {
-      flex: 1 1 160px;
-      min-width: 0;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-      font-size: 14px;
     }
 
     .btn {
@@ -249,13 +321,14 @@
       cursor: pointer;
       border-radius: var(--radius-pill);
       font-size: 13px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       white-space: nowrap;
       font-weight: 500;
+      flex: 1 1 48%;
       transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
     }
 
@@ -267,51 +340,50 @@
     .btn-kakao {
       background: #fee500;
       color: #3b3b3b;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
     }
 
     .btn-naver {
       background: #03c75a;
       color: #ffffff;
-      box-shadow: 0 8px 20px rgba(5, 150, 105, 0.35);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
     }
 
     .btn-outline {
       background: #ffffff;
       color: var(--accent-strong);
-      border: 1px solid rgba(37, 99, 235, 0.4);
-      padding-inline: 14px;
+      border: 1px solid rgba(37, 99, 235, 0.5);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.18);
+      width: 100%;
+      margin-top: 2px;
     }
 
     .directions-note {
       font-size: 11px;
       color: var(--text-muted);
-      margin: 4px 0 0;
+      margin: 2px 0 0;
       line-height: 1.5;
     }
 
-    /* 우측: 전체 일정 타임라인 */
+    /* 전체 일정 요약 */
     .timeline-card {
       background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 16px 16px 14px;
+      border-radius: 16px;
+      padding: 12px 14px 10px;
       border: 1px solid rgba(15, 23, 42, 0.04);
-      box-shadow: var(--shadow-soft);
-      position: sticky;
-      top: 16px;
-      align-self: flex-start;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
     }
 
     .timeline-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      margin: 0 0 10px;
+      margin: 0 0 6px;
     }
 
     .timeline-sub {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin: 0 0 12px;
+      margin: 0 0 10px;
     }
 
     .timeline-list {
@@ -323,41 +395,49 @@
 
     .timeline-item {
       position: relative;
-      padding-left: 14px;
-      padding-bottom: 10px;
-      margin-left: 6px;
+      padding-left: 12px;
+      padding-bottom: 8px;
+      margin-left: 5px;
     }
 
     .timeline-dot {
       position: absolute;
       left: -6px;
       top: 4px;
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
       background: #ffffff;
       border: 2px solid var(--accent-strong);
     }
 
     .timeline-date {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
 
     .timeline-place {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-main);
     }
 
     .timeline-time {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
+    .timeline-item.active .timeline-dot {
+      background: var(--accent-strong);
+    }
+
+    .timeline-item.active .timeline-date {
+      color: var(--accent-strong);
+    }
+
     .timeline-tip-box {
-      margin-top: 10px;
-      padding: 10px 11px;
+      margin-top: 8px;
+      padding: 8px 9px;
       border-radius: 12px;
       background: #f9fafb;
       border: 1px dashed #d1d5db;
@@ -370,7 +450,7 @@
     }
 
     footer {
-      padding: 10px 16px 18px;
+      padding: 8px 12px 16px;
       font-size: 11px;
       color: var(--text-muted);
       text-align: center;
@@ -383,26 +463,13 @@
       background: rgba(15, 23, 42, 0.03);
     }
 
-    /* 반응형 */
-    @media (max-width: 900px) {
+    @media (min-width: 768px) {
+      .hero-inner,
       .main-inner {
-        grid-template-columns: minmax(0, 1fr);
+        max-width: 640px;
       }
-      .timeline-card {
-        position: static;
-        order: -1;
-      }
-      .trip-body {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
       .hero-title {
-        font-size: 22px;
-      }
-      .trip-header {
-        align-items: flex-start;
+        font-size: 24px;
       }
     }
   </style>
@@ -417,15 +484,15 @@
           <span class="hero-tag-dot"></span>
           2025 겨울 체험학습 안내
         </div>
-        <h1 class="hero-title">체험 일정을 한눈에 확인하고<br>바로 길찾기로 이동하세요.</h1>
+        <h1 class="hero-title">날짜를 먼저 고르고<br>집합 시간과 장소, 오는 길을 확인하세요.</h1>
         <p class="hero-sub">
-          아래에서 각 날짜별 집합 장소와 시간을 확인하고,<br>
-          카카오맵·네이버지도 길찾기로 바로 이동할 수 있습니다.
+          위의 날짜 버튼에서 <strong>해당 날짜</strong>를 누르면,<br>
+          아래에 <strong>집합 장소·집합 시각·오는 방법</strong>이 색깔별로 크게 표시됩니다.
         </p>
         <div class="hero-notice">
           <div class="hero-pill">⏰ 집합 시각 10분 전까지 도착 권장</div>
           <div class="hero-notice-text">
-            학생 개별 이동 시, 반드시 보호자와 상의 후 안전한 경로로 이동하세요.
+            이동 전, 반드시 보호자와 함께 경로를 확인하세요.
           </div>
         </div>
       </div>
@@ -434,179 +501,228 @@
     <!-- 메인 컨텐츠 -->
     <main class="main">
       <div class="main-inner">
-        <!-- 좌측: 일정별 상세 + 지도/길찾기 -->
-        <section class="trips-column">
+        <!-- 날짜 선택 (1행: 날짜만) -->
+        <div class="date-tabs">
+          <button class="date-tab" data-trip="trip1">
+            <span>12월 8일</span>
+          </button>
+          <button class="date-tab" data-trip="trip2">
+            <span>12월 9일</span>
+          </button>
+          <button class="date-tab" data-trip="trip3">
+            <span>12월 10일</span>
+          </button>
+        </div>
 
-          <!-- 1. 잠실 롯데월드 -->
-          <article class="trip-card" data-trip-id="trip1">
-            <header class="trip-header">
-              <div class="trip-main-meta">
-                <div class="trip-date">12월 8일 (월)</div>
-                <div class="trip-place">잠실 롯데월드</div>
-              </div>
-              <div class="trip-time">오전 9시 30분까지 집합</div>
-              <div class="trip-badge">테마파크 체험</div>
-            </header>
-            <div class="trip-body">
-              <!-- 지도 영역 -->
-              <div class="map-shell">
-                <div id="map-trip1" class="map" aria-label="잠실 롯데월드 위치 지도"></div>
-              </div>
+        <!-- 1. 잠실 롯데월드 -->
+        <article class="trip-card" data-trip-id="trip1">
+          <header class="trip-header">
+            <div class="trip-date-large">12월 8일 (월)</div>
+            <div class="trip-place-large">잠실 롯데월드</div>
+            <div class="trip-badge">테마파크 체험</div>
+          </header>
 
-              <!-- 길찾기 영역 -->
-              <div class="directions">
-                <div class="directions-title">오는 방법</div>
-                <div class="directions-label">① 출발지(역/장소)를 직접 입력하면 카카오맵 길찾기가 열립니다.</div>
-                <div class="directions-row">
-                  <input
-                    type="text"
-                    class="input-start"
-                    data-trip="trip1"
-                    placeholder="예: 서울역 / 강남역 / 집 주소"
-                  />
-                  <button class="btn btn-kakao" data-trip="trip1" data-role="kakao-search">
-                    카카오맵 길찾기
-                  </button>
-                  <button class="btn btn-naver" data-trip="trip1" data-role="naver-open">
-                    네이버지도 열기
-                  </button>
-                </div>
-                <div class="directions-label">② 현재 위치 기준으로 카카오맵 앱/웹에서 길찾기를 열 수 있습니다.</div>
-                <div class="directions-row">
-                  <button class="btn btn-outline" data-trip="trip1" data-role="kakao-current">
-                    현재 위치 ⇢ 잠실 롯데월드 (카카오맵)
-                  </button>
-                </div>
-                <p class="directions-note">
-                  ※ 실시간 교통 상황, 환승 정보 등은 카카오맵·네이버지도 화면에서 확인하면 됩니다.
-                </p>
-              </div>
+          <div class="trip-body">
+            <!-- 집합 장소 -->
+            <div class="info-block place-block">
+              <div class="info-label">📍 집합 장소</div>
+              <div class="info-main-text">잠실 롯데월드</div>
+              <div class="info-sub-text">롯데월드 어드벤처 정문 앞</div>
             </div>
-          </article>
 
-          <!-- 2. NH 아트홀 (서대문역 앞) -->
-          <article class="trip-card" data-trip-id="trip2">
-            <header class="trip-header">
-              <div class="trip-main-meta">
-                <div class="trip-date">12월 9일 (화)</div>
-                <div class="trip-place">NH 아트홀 (서대문역 앞)</div>
-              </div>
-              <div class="trip-time">오전 10시 30분까지 집합</div>
-              <div class="trip-badge">공연 관람</div>
-            </header>
-            <div class="trip-body">
-              <!-- 지도 영역 -->
-              <div class="map-shell">
-                <div id="map-trip2" class="map" aria-label="NH 아트홀 위치 지도"></div>
-              </div>
-
-              <!-- 길찾기 영역 -->
-              <div class="directions">
-                <div class="directions-title">오는 방법</div>
-                <div class="directions-label">① 출발지를 입력하면 카카오맵 길찾기 화면이 새 탭에서 열립니다.</div>
-                <div class="directions-row">
-                  <input
-                    type="text"
-                    class="input-start"
-                    data-trip="trip2"
-                    placeholder="예: ○○역 / 집 / 버스정류장 이름"
-                  />
-                  <button class="btn btn-kakao" data-trip="trip2" data-role="kakao-search">
-                    카카오맵 길찾기
-                  </button>
-                  <button class="btn btn-naver" data-trip="trip2" data-role="naver-open">
-                    네이버지도 열기
-                  </button>
-                </div>
-                <div class="directions-label">
-                  ② 서대문역 5번 출구와 바로 연결된 공연장입니다. 지하철 5호선 이용 시 가장 편리합니다.
-                </div>
-                <div class="directions-row">
-                  <button class="btn btn-outline" data-trip="trip2" data-role="kakao-current">
-                    현재 위치 ⇢ NH 아트홀 (카카오맵)
-                  </button>
-                </div>
-                <p class="directions-note">
-                  ※ 버스/지하철 노선은 길찾기 화면에서 자동으로 추천됩니다.
-                </p>
-              </div>
+            <!-- 집합 시간 -->
+            <div class="info-block time-block">
+              <div class="info-label">⏰ 집합 시간</div>
+              <div class="info-main-text">오전 9시 30분까지</div>
+              <div class="info-sub-text">집합 시간 10분 전(9시 20분) 도착을 목표로 이동</div>
             </div>
-          </article>
 
-          <!-- 3. 독산 롯데시네마 -->
-          <article class="trip-card" data-trip-id="trip3">
-            <header class="trip-header">
-              <div class="trip-main-meta">
-                <div class="trip-date">12월 10일 (수)</div>
-                <div class="trip-place">독산 롯데시네마</div>
-              </div>
-              <div class="trip-time">오전 9시까지 집합</div>
-              <div class="trip-badge">영화 관람</div>
-            </header>
-            <div class="trip-body">
-              <!-- 지도 영역 -->
-              <div class="map-shell">
-                <div id="map-trip3" class="map" aria-label="독산 롯데시네마 위치 지도"></div>
-              </div>
-
-              <!-- 길찾기 영역 -->
-              <div class="directions">
-                <div class="directions-title">오는 방법</div>
-                <div class="directions-label">① 출발지를 입력하고 카카오맵 길찾기 버튼을 눌러 주세요.</div>
-                <div class="directions-row">
-                  <input
-                    type="text"
-                    class="input-start"
-                    data-trip="trip3"
-                    placeholder="예: 독산역 / 가산디지털단지역 / 집 주소"
-                  />
-                  <button class="btn btn-kakao" data-trip="trip3" data-role="kakao-search">
-                    카카오맵 길찾기
-                  </button>
-                  <button class="btn btn-naver" data-trip="trip3" data-role="naver-open">
-                    네이버지도 열기
-                  </button>
-                </div>
-                <div class="directions-label">
-                  ② 시흥대로 변에 위치한 시티렉스 6층 롯데시네마 독산점입니다.
-                </div>
-                <div class="directions-row">
-                  <button class="btn btn-outline" data-trip="trip3" data-role="kakao-current">
-                    현재 위치 ⇢ 독산 롯데시네마 (카카오맵)
-                  </button>
-                </div>
-                <p class="directions-note">
-                  ※ 승용차 이용 시에는 주차장 만차 여부를 미리 확인해 주세요.
-                </p>
-              </div>
+            <!-- 오는 방법 -->
+            <div class="info-block route-block">
+              <div class="info-label">🚌 오는 방법 (추천 경로)</div>
+              <ol class="transport-steps">
+                <li><strong>남부여성발전센터 정류장</strong>에서 <strong>5621번 버스</strong> 탑승</li>
+                <li><strong>구로디지털단지역</strong> 하차 → <strong>2호선</strong> <strong>신대방역 방면</strong> 열차 탑승</li>
+                <li><strong>잠실역</strong> 하차</li>
+                <li><strong>롯데월드</strong>까지 도보 이동</li>
+              </ol>
             </div>
-          </article>
 
-        </section>
+            <!-- 길찾기 버튼 -->
+            <div class="directions">
+              <p class="directions-label">
+                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 길찾기가 열립니다.
+              </p>
+              <div class="btn-row">
+                <button class="btn btn-kakao" data-trip="trip1" data-role="kakao-search">
+                  카카오맵 길찾기
+                </button>
+                <button class="btn btn-naver" data-trip="trip1" data-role="naver-open">
+                  네이버지도 열기
+                </button>
+              </div>
 
-        <!-- 우측: 전체 일정 요약 타임라인 -->
-        <aside class="timeline-card" aria-label="전체 일정 요약">
+              <p class="directions-label">
+                필요하면 “현재 위치 ⇢ 잠실 롯데월드” 전용 링크를 사용할 수도 있습니다.
+              </p>
+              <button class="btn btn-outline" data-trip="trip1" data-role="kakao-current">
+                현재 위치 ⇢ 잠실 롯데월드 (카카오맵)
+              </button>
+
+              <p class="directions-note">
+                ※ 실시간 교통 상황, 환승 정보 등은 카카오맵·네이버지도 화면에서 확인하면 됩니다.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. NH 아트홀 -->
+        <article class="trip-card" data-trip-id="trip2">
+          <header class="trip-header">
+            <div class="trip-date-large">12월 9일 (화)</div>
+            <div class="trip-place-large">NH 아트홀 (서대문역 앞)</div>
+            <div class="trip-badge">공연 관람</div>
+          </header>
+
+          <div class="trip-body">
+            <!-- 집합 장소 -->
+            <div class="info-block place-block">
+              <div class="info-label">📍 집합 장소</div>
+              <div class="info-main-text">NH 아트홀</div>
+              <div class="info-sub-text">서대문역 인근 공연장 (6번 출구 방향)</div>
+            </div>
+
+            <!-- 집합 시간 -->
+            <div class="info-block time-block">
+              <div class="info-label">⏰ 집합 시간</div>
+              <div class="info-main-text">오전 10시 30분까지</div>
+              <div class="info-sub-text">집합 시간 10분 전(10시 20분) 도착을 목표로 이동</div>
+            </div>
+
+            <!-- 오는 방법 -->
+            <div class="info-block route-block">
+              <div class="info-label">🚌 오는 방법 (추천 경로)</div>
+              <ol class="transport-steps">
+                <li><strong>남부여성발전센터 정류장</strong>에서 <strong>5621번 버스</strong> 탑승</li>
+                <li><strong>구로디지털단지역</strong> 하차 → <strong>2호선</strong> <strong>대림역 방면</strong> 열차 탑승</li>
+                <li><strong>영등포구청역</strong> 하차 → <strong>5호선</strong> <strong>영등포시장역 방면</strong>으로 환승</li>
+                <li><strong>서대문역</strong> 하차</li>
+                <li><strong>서대문역 6번 출구</strong>에서 NH 아트홀까지 도보 이동</li>
+              </ol>
+            </div>
+
+            <!-- 길찾기 버튼 -->
+            <div class="directions">
+              <p class="directions-label">
+                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 길찾기가 열립니다.
+              </p>
+              <div class="btn-row">
+                <button class="btn btn-kakao" data-trip="trip2" data-role="kakao-search">
+                  카카오맵 길찾기
+                </button>
+                <button class="btn btn-naver" data-trip="trip2" data-role="naver-open">
+                  네이버지도 열기
+                </button>
+              </div>
+
+              <p class="directions-label">
+                필요하면 “현재 위치 ⇢ NH 아트홀” 전용 링크를 사용할 수도 있습니다.
+              </p>
+              <button class="btn btn-outline" data-trip="trip2" data-role="kakao-current">
+                현재 위치 ⇢ NH 아트홀 (카카오맵)
+              </button>
+
+              <p class="directions-note">
+                ※ 버스/지하철 노선은 길찾기 화면에서 자동으로 추천됩니다.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. 독산 롯데시네마 -->
+        <article class="trip-card" data-trip-id="trip3">
+          <header class="trip-header">
+            <div class="trip-date-large">12월 10일 (수)</div>
+            <div class="trip-place-large">독산 롯데시네마</div>
+            <div class="trip-badge">영화 관람</div>
+          </header>
+
+          <div class="trip-body">
+            <!-- 집합 장소 -->
+            <div class="info-block place-block">
+              <div class="info-label">📍 집합 장소</div>
+              <div class="info-main-text">독산 롯데시네마</div>
+              <div class="info-sub-text">시흥대로 시티렉스 6층 롯데시네마 독산점</div>
+            </div>
+
+            <!-- 집합 시간 -->
+            <div class="info-block time-block">
+              <div class="info-label">⏰ 집합 시간</div>
+              <div class="info-main-text">오전 9시까지</div>
+              <div class="info-sub-text">집합 시간 10분 전(8시 50분) 도착을 목표로 이동</div>
+            </div>
+
+            <!-- 오는 방법 -->
+            <div class="info-block route-block">
+              <div class="info-label">🚌 오는 방법 (추천 경로)</div>
+              <ol class="transport-steps">
+                <li><strong>남부여성발전센터 정류장</strong>에서 <strong>금천 08번 버스</strong> 탑승</li>
+                <li><strong>금천우체국 정류장</strong> 하차</li>
+                <li><strong>독산 롯데시네마</strong>까지 도보 이동</li>
+              </ol>
+            </div>
+
+            <!-- 길찾기 버튼 -->
+            <div class="directions">
+              <p class="directions-label">
+                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 길찾기가 열립니다.
+              </p>
+              <div class="btn-row">
+                <button class="btn btn-kakao" data-trip="trip3" data-role="kakao-search">
+                  카카오맵 길찾기
+                </button>
+                <button class="btn btn-naver" data-trip="trip3" data-role="naver-open">
+                  네이버지도 열기
+                </button>
+              </div>
+
+              <p class="directions-label">
+                필요하면 “현재 위치 ⇢ 독산 롯데시네마” 전용 링크를 사용할 수도 있습니다.
+              </p>
+              <button class="btn btn-outline" data-trip="trip3" data-role="kakao-current">
+                현재 위치 ⇢ 독산 롯데시네마 (카카오맵)
+              </button>
+
+              <p class="directions-note">
+                ※ 승용차 이용 시에는 주차장 만차 여부를 미리 확인해 주세요.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 전체 일정 요약 -->
+        <section class="timeline-card" aria-label="전체 일정 요약">
           <h2 class="timeline-title">전체 일정 한눈에 보기</h2>
           <p class="timeline-sub">
-            날짜·장소·집합 시간만 빠르게 확인할 수 있습니다.
+            위에서 선택한 날짜는 아래 목록에서도 함께 강조됩니다.
           </p>
           <ol class="timeline-list">
-            <li class="timeline-item">
+            <li class="timeline-item" data-trip="trip1">
               <span class="timeline-dot"></span>
               <div class="timeline-date">12월 8일 (월)</div>
               <div class="timeline-place">잠실 롯데월드</div>
-              <div class="timeline-time">오전 9시 30분까지 1층 정문 앞 집합</div>
+              <div class="timeline-time">오전 9시 30분까지 정문 앞 집합</div>
             </li>
-            <li class="timeline-item">
+            <li class="timeline-item" data-trip="trip2">
               <span class="timeline-dot"></span>
               <div class="timeline-date">12월 9일 (화)</div>
-              <div class="timeline-place">NH 아트홀 (서대문역 5번 출구 연결)</div>
+              <div class="timeline-place">NH 아트홀 (서대문역 인근)</div>
               <div class="timeline-time">오전 10시 30분까지 로비 집합</div>
             </li>
-            <li class="timeline-item">
+            <li class="timeline-item" data-trip="trip3">
               <span class="timeline-dot"></span>
               <div class="timeline-date">12월 10일 (수)</div>
-              <div class="timeline-place">독산 롯데시네마 (시흥대로 시티렉스 6층)</div>
+              <div class="timeline-place">독산 롯데시네마 (시티렉스 6층)</div>
               <div class="timeline-time">오전 9시까지 입구 집합</div>
             </li>
           </ol>
@@ -616,7 +732,7 @@
             ・ 집합 시각 기준 10분 전 도착을 목표로 길찾기를 설정하세요.<br>
             ・ 날씨, 지하철·버스 지연 등을 고려해 여유 시간을 충분히 잡는 것이 좋습니다.
           </div>
-        </aside>
+        </section>
       </div>
     </main>
 
@@ -626,80 +742,68 @@
   </div>
 
   <script>
-    // === 일정/장소 데이터 정의 ===
-    // 좌표는 대략적인 값으로, 필요하면 실제 위도/경도로 수정 가능
+    // === 일정/장소 데이터 정의 (길찾기용) ===
     const TRIPS = [
       {
         id: 'trip1',
-        mapElementId: 'map-trip1',
         kakaoName: '롯데월드 어드벤처',
         naverTitle: '롯데월드 어드벤처',
-        // 잠실 롯데월드 근처 좌표
         lat: 37.5110,
         lng: 127.0980
       },
       {
         id: 'trip2',
-        mapElementId: 'map-trip2',
         kakaoName: '농협 NH아트홀',
         naverTitle: '농협 NH아트홀',
-        // 서대문역 인근 NH 아트홀 근처 좌표
         lat: 37.5657,
         lng: 126.9669
       },
       {
         id: 'trip3',
-        mapElementId: 'map-trip3',
         kakaoName: '롯데시네마 독산',
         naverTitle: '롯데시네마 독산',
-        // 독산 롯데시네마(시흥대로 399) 근처 좌표
         lat: 37.4689,
         lng: 126.8898
       }
     ];
 
-    // === Kakao 지도 초기화 ===
-    function initMaps() {
-      TRIPS.forEach(trip => {
-        const container = document.getElementById(trip.mapElementId);
-        if (!container) return;
-
-        const center = new kakao.maps.LatLng(trip.lat, trip.lng);
-        const map = new kakao.maps.Map(container, {
-          center: center,
-          level: 3
-        });
-
-        const marker = new kakao.maps.Marker({
-          position: center
-        });
-        marker.setMap(map);
-
-        // 간단한 인포윈도우
-        const info = new kakao.maps.InfoWindow({
-          content:
-            '<div style="padding:6px 8px;font-size:12px;">' +
-            kakao.maps.services ?
-            trip.kakaoName : trip.kakaoName +
-            '</div>'
-        });
-        info.open(map, marker);
+    // === 날짜/카드/타임라인 활성화 ===
+    function setActiveTrip(tripId) {
+      document.querySelectorAll('.date-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.trip === tripId);
       });
+
+      document.querySelectorAll('.trip-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.tripId === tripId);
+      });
+
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.trip === tripId);
+      });
+    }
+
+    function setupTabs() {
+      document.querySelectorAll('.date-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tripId = btn.dataset.trip;
+          setActiveTrip(tripId);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+      // 기본 선택: 1일차
+      setActiveTrip('trip1');
     }
 
     // === 길찾기 버튼 동작 ===
     function setupDirectionHandlers() {
-      // 1) 카카오맵 길찾기 (출발지 직접 입력)
+      // 1) 카카오맵 길찾기 (현재 위치 → 목적지, sName 고정)
       document.querySelectorAll('button[data-role="kakao-search"]').forEach(btn => {
         btn.addEventListener('click', () => {
           const tripId = btn.getAttribute('data-trip');
           const trip = TRIPS.find(t => t.id === tripId);
           if (!trip) return;
 
-          const input = document.querySelector('.input-start[data-trip="' + tripId + '"]');
-          const startName = (input?.value || '').trim() || '현재 위치';
-
-          // 비공식이긴 하지만 널리 쓰이는 sName/eName 파라미터 사용
+          const startName = '현재 위치';
           const url =
             'https://map.kakao.com/?sName=' +
             encodeURIComponent(startName) +
@@ -710,14 +814,13 @@
         });
       });
 
-      // 2) 카카오맵 길찾기 (현재 위치 기준: 공식 link/to 형식, 목적지 좌표 사용)
+      // 2) 카카오맵 길찾기 (link/to 형식: 현재 위치 → 좌표)
       document.querySelectorAll('button[data-role="kakao-current"]').forEach(btn => {
         btn.addEventListener('click', () => {
           const tripId = btn.getAttribute('data-trip');
           const trip = TRIPS.find(t => t.id === tripId);
           if (!trip) return;
 
-          // Kakao link/to: 사용자의 현재 위치 → 지정 좌표
           const url =
             'https://map.kakao.com/link/to/' +
             encodeURIComponent(trip.kakaoName) +
@@ -730,14 +833,13 @@
         });
       });
 
-      // 3) 네이버 지도 열기 (목적지 중심으로 지도 표시)
+      // 3) 네이버 지도 열기 (목적지 중심)
       document.querySelectorAll('button[data-role="naver-open"]').forEach(btn => {
         btn.addEventListener('click', () => {
           const tripId = btn.getAttribute('data-trip');
           const trip = TRIPS.find(t => t.id === tripId);
           if (!trip) return;
 
-          // 네이버 지도: lat, lng, title 파라미터로 위치 열기
           const url =
             'https://map.naver.com/?lng=' +
             trip.lng +
@@ -753,17 +855,9 @@
 
     // === 초기 실행 ===
     document.addEventListener('DOMContentLoaded', () => {
-      // Kakao Maps SDK 로드
-      if (window.kakao && kakao.maps) {
-        kakao.maps.load(initMaps);
-      }
+      setupTabs();
       setupDirectionHandlers();
     });
   </script>
 </body>
 </html>
-
-
-
-
-
