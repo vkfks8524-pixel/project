@@ -349,15 +349,6 @@
       box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
     }
 
-    .btn-outline {
-      background: #ffffff;
-      color: var(--accent-strong);
-      border: 1px solid rgba(37, 99, 235, 0.5);
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.18);
-      width: 100%;
-      margin-top: 2px;
-    }
-
     .directions-note {
       font-size: 11px;
       color: var(--text-muted);
@@ -419,7 +410,7 @@
 
     .timeline-place {
       font-size: 12px;
-      color: var(--text-main);
+      color: #111827;
     }
 
     .timeline-time {
@@ -551,7 +542,7 @@
             <!-- 길찾기 버튼 -->
             <div class="directions">
               <p class="directions-label">
-                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 길찾기가 열립니다.
+                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 대중교통 길찾기가 열립니다.
               </p>
               <div class="btn-row">
                 <button class="btn btn-kakao" data-trip="trip1" data-role="kakao-search">
@@ -561,13 +552,6 @@
                   네이버지도 열기
                 </button>
               </div>
-
-              <p class="directions-label">
-                필요하면 “현재 위치 ⇢ 잠실 롯데월드” 전용 링크를 사용할 수도 있습니다.
-              </p>
-              <button class="btn btn-outline" data-trip="trip1" data-role="kakao-current">
-                현재 위치 ⇢ 잠실 롯데월드 (카카오맵)
-              </button>
 
               <p class="directions-note">
                 ※ 실시간 교통 상황, 환승 정보 등은 카카오맵·네이버지도 화면에서 확인하면 됩니다.
@@ -614,7 +598,7 @@
             <!-- 길찾기 버튼 -->
             <div class="directions">
               <p class="directions-label">
-                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 길찾기가 열립니다.
+                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 대중교통 길찾기가 열립니다.
               </p>
               <div class="btn-row">
                 <button class="btn btn-kakao" data-trip="trip2" data-role="kakao-search">
@@ -624,13 +608,6 @@
                   네이버지도 열기
                 </button>
               </div>
-
-              <p class="directions-label">
-                필요하면 “현재 위치 ⇢ NH 아트홀” 전용 링크를 사용할 수도 있습니다.
-              </p>
-              <button class="btn btn-outline" data-trip="trip2" data-role="kakao-current">
-                현재 위치 ⇢ NH 아트홀 (카카오맵)
-              </button>
 
               <p class="directions-note">
                 ※ 버스/지하철 노선은 길찾기 화면에서 자동으로 추천됩니다.
@@ -675,7 +652,7 @@
             <!-- 길찾기 버튼 -->
             <div class="directions">
               <p class="directions-label">
-                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 길찾기가 열립니다.
+                아래 버튼을 누르면 <strong>현재 위치 기준</strong>으로 카카오맵·네이버지도 대중교통 길찾기가 열립니다.
               </p>
               <div class="btn-row">
                 <button class="btn btn-kakao" data-trip="trip3" data-role="kakao-search">
@@ -685,13 +662,6 @@
                   네이버지도 열기
                 </button>
               </div>
-
-              <p class="directions-label">
-                필요하면 “현재 위치 ⇢ 독산 롯데시네마” 전용 링크를 사용할 수도 있습니다.
-              </p>
-              <button class="btn btn-outline" data-trip="trip3" data-role="kakao-current">
-                현재 위치 ⇢ 독산 롯데시네마 (카카오맵)
-              </button>
 
               <p class="directions-note">
                 ※ 승용차 이용 시에는 주차장 만차 여부를 미리 확인해 주세요.
@@ -796,26 +766,8 @@
 
     // === 길찾기 버튼 동작 ===
     function setupDirectionHandlers() {
-      // 1) 카카오맵 길찾기 (현재 위치 → 목적지, sName 고정)
+      // 1) 카카오맵 길찾기 (현재 위치 → 목적지 : link/to)
       document.querySelectorAll('button[data-role="kakao-search"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const tripId = btn.getAttribute('data-trip');
-          const trip = TRIPS.find(t => t.id === tripId);
-          if (!trip) return;
-
-          const startName = '현재 위치';
-          const url =
-            'https://map.kakao.com/?sName=' +
-            encodeURIComponent(startName) +
-            '&eName=' +
-            encodeURIComponent(trip.kakaoName);
-
-          window.open(url, '_blank', 'noopener');
-        });
-      });
-
-      // 2) 카카오맵 길찾기 (link/to 형식: 현재 위치 → 좌표)
-      document.querySelectorAll('button[data-role="kakao-current"]').forEach(btn => {
         btn.addEventListener('click', () => {
           const tripId = btn.getAttribute('data-trip');
           const trip = TRIPS.find(t => t.id === tripId);
@@ -833,7 +785,7 @@
         });
       });
 
-      // 3) 네이버 지도 열기 (목적지 중심)
+      // 2) 네이버 지도 길찾기 (현재 위치 → 목적지 : transit 모드)
       document.querySelectorAll('button[data-role="naver-open"]').forEach(btn => {
         btn.addEventListener('click', () => {
           const tripId = btn.getAttribute('data-trip');
@@ -841,11 +793,11 @@
           if (!trip) return;
 
           const url =
-            'https://map.naver.com/?lng=' +
+            'https://map.naver.com/v5/directions/-/-/-/transit?to=' +
             trip.lng +
-            '&lat=' +
+            ',' +
             trip.lat +
-            '&title=' +
+            ',' +
             encodeURIComponent(trip.naverTitle);
 
           window.open(url, '_blank', 'noopener');
